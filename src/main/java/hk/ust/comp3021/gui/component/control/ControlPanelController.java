@@ -30,7 +30,8 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public @NotNull Action fetchAction() {
-        // TODO
+        //
+
         throw new NotImplementedException();
     }
 
