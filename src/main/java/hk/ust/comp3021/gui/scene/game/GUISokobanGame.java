@@ -7,6 +7,7 @@ import hk.ust.comp3021.game.InputEngine;
 import hk.ust.comp3021.game.RenderingEngine;
 import hk.ust.comp3021.gui.utils.Message;
 import hk.ust.comp3021.utils.StringResources;
+import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
 import static hk.ust.comp3021.utils.StringResources.WIN_MESSAGE;
@@ -41,7 +42,7 @@ public class GUISokobanGame extends AbstractSokobanGame implements Runnable {
             renderingEngine.render(state);
         }
         // TODO: Display the win message.
-        Message.info("Info", WIN_MESSAGE);
+        Platform.runLater(() -> Message.info("Info", WIN_MESSAGE));
     }
 
 }

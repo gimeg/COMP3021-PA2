@@ -91,6 +91,7 @@ public class ControlPanelController implements Initializable, InputEngine {
             MovementButtonGroup movementButtonGroup = new MovementButtonGroup();
             movementButtonGroup.getController().setPlayer(player);
             movementButtonGroup.getController().setPlayerImage(playerImageUrl);
+            playerControls.getChildren().add(movementButtonGroup);
         } catch (IOException e) {
             Message.error("Error", e.getMessage());
         }

@@ -4,6 +4,7 @@ import hk.ust.comp3021.actions.Action;
 import hk.ust.comp3021.actions.Move;
 import hk.ust.comp3021.entities.Player;
 import hk.ust.comp3021.gui.utils.Message;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -52,7 +53,7 @@ public class MovementButtonGroupController implements Initializable {
         try {
             ControlPanelController.actionBlockingQueue.put(a);
         } catch (InterruptedException e) {
-            Message.error("Error", e.getMessage());
+            Platform.runLater(() -> Message.error("Error", e.getMessage()));
         }
     }
 
@@ -63,7 +64,7 @@ public class MovementButtonGroupController implements Initializable {
         try {
             ControlPanelController.actionBlockingQueue.put(a);
         } catch (InterruptedException e) {
-            Message.error("Error", e.getMessage());
+            Platform.runLater(() -> Message.error("Error", e.getMessage()));
         }
     }
 
@@ -74,7 +75,7 @@ public class MovementButtonGroupController implements Initializable {
         try {
             ControlPanelController.actionBlockingQueue.put(a);
         } catch (InterruptedException e) {
-            Message.error("Error", e.getMessage());
+            Platform.runLater(() -> Message.error("Error", e.getMessage()));
         }
     }
 
@@ -85,7 +86,7 @@ public class MovementButtonGroupController implements Initializable {
         try {
             ControlPanelController.actionBlockingQueue.put(a);
         } catch (InterruptedException e) {
-            Message.error("Error", e.getMessage());
+            Platform.runLater(() -> Message.error("Error", e.getMessage()));
         }
     }
 

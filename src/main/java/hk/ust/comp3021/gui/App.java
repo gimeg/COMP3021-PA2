@@ -55,6 +55,9 @@ public class App extends Application {
         // TODO
         GameMap gameMap = event.getModel().gameMap();
         GameState gameState = new GameState(gameMap);
+        if (gameState.getAllPlayerPositions().size() > 4) {
+            Message.error("Error", "4 players at most.");
+        }
         try {
             ControlPanelController.actionBlockingQueue.clear();
             GameScene gameScene = new GameScene(gameState);

@@ -48,6 +48,11 @@ public class GameBoardController implements RenderingEngine, Initializable {
         // TODO
         Platform.runLater(() -> {
             try {
+                for (Position pos : state.getDestinations()) {
+                    Cell c = new Cell();
+                    c.getController().setImage(Resource.getDestinationImageURL());
+                    map.add(c, pos.x(), pos.y());
+                }
 
                 var height = state.getMapMaxHeight();
                 var width = state.getMapMaxWidth();
@@ -62,23 +67,22 @@ public class GameBoardController implements RenderingEngine, Initializable {
                             Player player = (Player) entity;
                             c.getController().setImage(Resource.getPlayerImageURL(player.getId()));
                         } else if (entity instanceof Empty) {
+                            if (state.getDestinations().contains(pos)) {
+                                continue;
+                            }
                             c.getController().setImage(Resource.getEmptyImageURL());
                         } else if (entity instanceof Box) {
                             Box box = (Box) entity;
                             c.getController().setImage(Resource.getBoxImageURL(box.getPlayerId()));
+                            if (state.getDestinations().contains(pos)) {
+                                c.getController().markAtDestination();
+                            }
                         }
                         map.add(c, i, j);
                     }
                 }
 
-                for (Position pos : state.getDestinations()) {
-                    Cell c = new Cell();
-                    c.getController().setImage(Resource.getDestinationImageURL());
-                    map.add(c, pos.x(), pos.y());
-                    if (state.getEntity(pos) instanceof Box) {
-                        c.getController().markAtDestination();
-                    }
-                }
+
                 if (state.getUndoQuota().isPresent()) {
                     undoQuota.setText(String.format(StringResources.UNDO_QUOTA_TEMPLATE, state.getUndoQuota().get()));
                 } else {
