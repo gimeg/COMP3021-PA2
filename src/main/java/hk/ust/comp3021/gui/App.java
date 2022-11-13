@@ -1,18 +1,27 @@
 package hk.ust.comp3021.gui;
 
+import hk.ust.comp3021.game.GameMap;
+import hk.ust.comp3021.game.GameState;
+import hk.ust.comp3021.gui.component.control.ControlPanelController;
 import hk.ust.comp3021.gui.component.maplist.MapEvent;
+import hk.ust.comp3021.gui.component.maplist.MapModel;
 import hk.ust.comp3021.gui.scene.game.ExitEvent;
 import hk.ust.comp3021.gui.scene.game.GameScene;
 import hk.ust.comp3021.gui.scene.start.StartScene;
+import hk.ust.comp3021.gui.utils.Message;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * The JavaFX application that launches the game.
  */
 public class App extends Application {
     private Stage primaryStage;
-
+    private StartScene startScene;
     /**
      * Set up the primary stage and show the {@link StartScene}.
      *
@@ -26,9 +35,15 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Sokoban Game - COMP3021 2022Fall");
-
-        // TODO
+        // TODO: throw Exception if something goes wrong.
+        StartScene startScene = new StartScene();
+        this.startScene = startScene;
+        primaryStage.setScene(startScene);
+        primaryStage.addEventHandler(MapEvent.OPEN_MAP_EVENT_TYPE, this::onOpenMap);
+        primaryStage.addEventHandler(ExitEvent.EVENT_TYPE, this::onExitGame);
+        primaryStage.show();
     }
+
 
     /**
      * Event handler for opening a map.
@@ -38,6 +53,18 @@ public class App extends Application {
      */
     public void onOpenMap(MapEvent event) {
         // TODO
+        GameMap gameMap = event.getModel().gameMap();
+        GameState gameState = new GameState(gameMap);
+        try {
+            ControlPanelController.actionBlockingQueue.clear();
+            GameScene gameScene = new GameScene(gameState);
+            primaryStage.setScene(gameScene);
+        }
+        catch (IOException e) {
+            Message.error("Error", e.getMessage());
+        }
+
+
     }
 
     /**
@@ -48,5 +75,6 @@ public class App extends Application {
      */
     public void onExitGame(ExitEvent event) {
         // TODO
+        primaryStage.setScene(this.startScene);
     }
 }

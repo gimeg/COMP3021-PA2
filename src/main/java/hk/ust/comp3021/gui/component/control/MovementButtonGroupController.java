@@ -1,8 +1,12 @@
 package hk.ust.comp3021.gui.component.control;
 
+import hk.ust.comp3021.actions.Action;
+import hk.ust.comp3021.actions.Move;
 import hk.ust.comp3021.entities.Player;
+import hk.ust.comp3021.gui.utils.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
@@ -37,26 +41,52 @@ public class MovementButtonGroupController implements Initializable {
      */
     public void setPlayerImage(URL url) {
         // TODO
+        Image value = new Image(url.toString());
+        playerImage.setImage(value);
     }
 
     @FXML
     private void moveUp() {
         // TODO
+        Action a = new Move.Up(player.getId());
+        try {
+            ControlPanelController.actionBlockingQueue.put(a);
+        } catch (InterruptedException e) {
+            Message.error("Error", e.getMessage());
+        }
     }
 
     @FXML
     private void moveDown() {
         // TODO
+        Action a = new Move.Down(player.getId());
+        try {
+            ControlPanelController.actionBlockingQueue.put(a);
+        } catch (InterruptedException e) {
+            Message.error("Error", e.getMessage());
+        }
     }
 
     @FXML
     private void moveLeft() {
         // TODO
+        Action a = new Move.Left(player.getId());
+        try {
+            ControlPanelController.actionBlockingQueue.put(a);
+        } catch (InterruptedException e) {
+            Message.error("Error", e.getMessage());
+        }
     }
 
     @FXML
     private void moveRight() {
         // TODO
+        Action a = new Move.Right(player.getId());
+        try {
+            ControlPanelController.actionBlockingQueue.put(a);
+        } catch (InterruptedException e) {
+            Message.error("Error", e.getMessage());
+        }
     }
 
     @Override

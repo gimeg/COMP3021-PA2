@@ -1,8 +1,10 @@
 package hk.ust.comp3021.gui.component.board;
 
+import hk.ust.comp3021.gui.utils.Resource;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,10 +28,11 @@ public class CellController implements Initializable {
 
     /**
      * Adds a check mark to the cell.
-     * Should be called when the cell is one of the  destinations and there is a box.
+     * Should be called when the cell is one of the destinations and there is a box.
      */
     public void markAtDestination() {
         // TODO
+        mark.setText("✓");
     }
 
     /**
@@ -39,5 +42,7 @@ public class CellController implements Initializable {
      */
     public void setImage(@NotNull URL url) {
         // TODO
+        Image value = new Image(url.toString());
+        image.setImage(value);
     }
 }

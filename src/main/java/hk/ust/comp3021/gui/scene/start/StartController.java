@@ -1,15 +1,36 @@
 package hk.ust.comp3021.gui.scene.start;
 
+import hk.ust.comp3021.actions.Action;
+import hk.ust.comp3021.gui.component.control.ControlPanelController;
 import hk.ust.comp3021.gui.component.maplist.MapEvent;
 import hk.ust.comp3021.gui.component.maplist.MapList;
+import hk.ust.comp3021.gui.component.maplist.MapModel;
+import hk.ust.comp3021.gui.utils.Message;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.ArrayBlockingQueue;
+
+import javafx.collections.ObservableList;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 /**
  * Control logic for {@link  StartScene}.
@@ -24,6 +45,7 @@ public class StartController implements Initializable {
     @FXML
     private Button openButton;
 
+
     /**
      * Initialize the controller.
      * Load the built-in maps to {@link this#mapList}.
@@ -36,6 +58,15 @@ public class StartController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
+        final URL map00 = getClass().getClassLoader().getResource("map00.map");
+        final URL map01 = getClass().getClassLoader().getResource("map01.map");
+
+        this.mapList.getController().addNewMap(map00);
+        this.mapList.getController().addNewMap(map01);
+
+        openButton.disableProperty().bind(mapList.getController().getSelectedItemProperty().isNull());
+        deleteButton.disableProperty().bind(mapList.getController().getSelectedItemProperty().isNull());
+
     }
 
     /**
@@ -48,6 +79,19 @@ public class StartController implements Initializable {
     @FXML
     private void onLoadMapBtnClicked(ActionEvent event) {
         // TODO
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Game Maps", "*.map"));
+        Window ownerWindow = mapList.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(ownerWindow);
+        if (selectedFile != null) {
+            try {
+                this.mapList.getController().addNewMap(selectedFile.toURI().toURL());
+            } catch (MalformedURLException e) {
+                Message.error("Error", "Fail to load map.");
+            }
+        }
     }
 
     /**
@@ -57,6 +101,7 @@ public class StartController implements Initializable {
     @FXML
     public void onDeleteMapBtnClicked() {
         // TODO
+        this.mapList.getController().deleteSelectedMap();
     }
 
     /**
@@ -67,6 +112,9 @@ public class StartController implements Initializable {
     @FXML
     public void onOpenMapBtnClicked() {
         // TODO
+        MapModel mapModel = mapList.getController().getSelectedItemProperty().get();
+        MapEvent mapEvent = new MapEvent(MapEvent.OPEN_MAP_EVENT_TYPE, mapModel);
+        openButton.fireEvent(mapEvent);
     }
 
     /**
@@ -78,6 +126,9 @@ public class StartController implements Initializable {
     @FXML
     public void onDragOver(DragEvent event) {
         // TODO
+        /* allow for both copying and moving, whatever user chooses */
+        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+
     }
 
     /**
@@ -92,7 +143,23 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onDragDropped(DragEvent dragEvent) {
-        // TODO
+        /* data dropped */
+        /* if there is a string data on dragboard, read it and use it */
+        Dragboard db = dragEvent.getDragboard();
+        if (db.hasFiles()) {
+            List<File> files = db.getFiles();
+            for (File file : files) {
+                try {
+                    this.mapList.getController().addNewMap(file.toURI().toURL());
+                } catch (MalformedURLException e) {
+                    Message.error("Error", "Fail to load map.");
+                }
+
+            }
+        }
+        /* let the source know whether the string was successfully
+         * transferred and used */
+        dragEvent.setDropCompleted(true);
     }
 
 }
