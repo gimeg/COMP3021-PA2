@@ -6,9 +6,7 @@ import hk.ust.comp3021.actions.Undo;
 import hk.ust.comp3021.entities.Player;
 import hk.ust.comp3021.game.InputEngine;
 import hk.ust.comp3021.gui.utils.Message;
-import hk.ust.comp3021.utils.NotImplementedException;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.FlowPane;
@@ -32,7 +30,7 @@ public class ControlPanelController implements Initializable, InputEngine {
     /**
      *  Store actions
      */
-    public static final BlockingQueue<Action> actionBlockingQueue = new ArrayBlockingQueue<Action>(233);
+    public static BlockingQueue<Action> actionBlockingQueue = new ArrayBlockingQueue<Action>(233);
     /**
      * Fetch the next action made by users.
      * All the actions performed by users should be cached in this class and returned by this method.
@@ -41,7 +39,6 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public @NotNull Action fetchAction() {
-        // TODO
         try {
             return actionBlockingQueue.take();
         } catch (InterruptedException e) {
@@ -60,7 +57,6 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
     }
 
     /**
@@ -70,7 +66,6 @@ public class ControlPanelController implements Initializable, InputEngine {
      * @param event Event data related to clicking the button.
      */
     public void onUndo(ActionEvent event) {
-        // TODO
         try {
             actionBlockingQueue.put(new Undo(0));
         } catch (InterruptedException e) {
@@ -86,7 +81,6 @@ public class ControlPanelController implements Initializable, InputEngine {
      * @param playerImageUrl The URL to the profile image of the player
      */
     public void addPlayer(Player player, URL playerImageUrl) {
-        // TODO
         try {
             MovementButtonGroup movementButtonGroup = new MovementButtonGroup();
             movementButtonGroup.getController().setPlayer(player);

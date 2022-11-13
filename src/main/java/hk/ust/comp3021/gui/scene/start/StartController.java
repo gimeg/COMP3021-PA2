@@ -1,32 +1,21 @@
 package hk.ust.comp3021.gui.scene.start;
 
-import hk.ust.comp3021.actions.Action;
-import hk.ust.comp3021.gui.component.control.ControlPanelController;
 import hk.ust.comp3021.gui.component.maplist.MapEvent;
 import hk.ust.comp3021.gui.component.maplist.MapList;
 import hk.ust.comp3021.gui.component.maplist.MapModel;
 import hk.ust.comp3021.gui.utils.Message;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.concurrent.ArrayBlockingQueue;
 
-import javafx.collections.ObservableList;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
@@ -57,7 +46,6 @@ public class StartController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
         final URL map00 = getClass().getClassLoader().getResource("map00.map");
         final URL map01 = getClass().getClassLoader().getResource("map01.map");
 
@@ -78,7 +66,6 @@ public class StartController implements Initializable {
      */
     @FXML
     private void onLoadMapBtnClicked(ActionEvent event) {
-        // TODO
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
@@ -100,7 +87,6 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onDeleteMapBtnClicked() {
-        // TODO
         this.mapList.getController().deleteSelectedMap();
     }
 
@@ -111,7 +97,6 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onOpenMapBtnClicked() {
-        // TODO
         MapModel mapModel = mapList.getController().getSelectedItemProperty().get();
         MapEvent mapEvent = new MapEvent(MapEvent.OPEN_MAP_EVENT_TYPE, mapModel);
         openButton.fireEvent(mapEvent);
@@ -125,7 +110,6 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onDragOver(DragEvent event) {
-        // TODO
         /* allow for both copying and moving, whatever user chooses */
         event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 

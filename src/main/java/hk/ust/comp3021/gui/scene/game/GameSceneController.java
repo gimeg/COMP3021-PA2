@@ -3,8 +3,6 @@ package hk.ust.comp3021.gui.scene.game;
 import hk.ust.comp3021.game.GameState;
 import hk.ust.comp3021.gui.component.board.GameBoard;
 import hk.ust.comp3021.gui.component.control.ControlPanel;
-import hk.ust.comp3021.gui.component.maplist.MapEvent;
-import hk.ust.comp3021.gui.component.maplist.MapModel;
 import hk.ust.comp3021.gui.utils.Resource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +38,6 @@ public class GameSceneController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
     }
 
     /**
@@ -66,7 +63,6 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void onExit(ActionEvent event) {
-        // TODO
         ExitEvent e = new ExitEvent();
         controlPanel.fireEvent(e);
     }

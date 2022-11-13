@@ -41,7 +41,6 @@ public class MapListItemController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
         mapModelProperty.addListener(new ChangeListener<MapModel>() {
             @Override
             public void changed(ObservableValue<? extends MapModel> observable, MapModel oldValue, MapModel newValue) {

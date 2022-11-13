@@ -41,14 +41,12 @@ public class MovementButtonGroupController implements Initializable {
      * @param url The URL.
      */
     public void setPlayerImage(URL url) {
-        // TODO
         Image value = new Image(url.toString());
         playerImage.setImage(value);
     }
 
     @FXML
     private void moveUp() {
-        // TODO
         Action a = new Move.Up(player.getId());
         try {
             ControlPanelController.actionBlockingQueue.put(a);
@@ -59,7 +57,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveDown() {
-        // TODO
         Action a = new Move.Down(player.getId());
         try {
             ControlPanelController.actionBlockingQueue.put(a);
@@ -70,7 +67,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveLeft() {
-        // TODO
         Action a = new Move.Left(player.getId());
         try {
             ControlPanelController.actionBlockingQueue.put(a);
@@ -81,7 +77,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveRight() {
-        // TODO
         Action a = new Move.Right(player.getId());
         try {
             ControlPanelController.actionBlockingQueue.put(a);
@@ -92,6 +87,5 @@ public class MovementButtonGroupController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
     }
 }

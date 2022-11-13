@@ -1,6 +1,5 @@
 package hk.ust.comp3021.gui.component.board;
 
-import hk.ust.comp3021.gui.utils.Resource;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -23,7 +22,6 @@ public class CellController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
     }
 
     /**
@@ -31,7 +29,6 @@ public class CellController implements Initializable {
      * Should be called when the cell is one of the destinations and there is a box.
      */
     public void markAtDestination() {
-        // TODO
         mark.setText("✓");
     }
 
@@ -41,7 +38,6 @@ public class CellController implements Initializable {
      * @param url The URL to the image.
      */
     public void setImage(@NotNull URL url) {
-        // TODO
         Image value = new Image(url.toString());
         image.setImage(value);
     }
